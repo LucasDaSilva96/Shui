@@ -34,12 +34,40 @@ package:
   individually: true
 
 functions:
-  hello:
-    handler: handler.hello
+  createPost:
+    handler: functions/createPost/index.handler
     events:
       - httpApi:
-          path: /
+          path: /createPost
+          method: post
+
+  getAllPosts:
+    handler: functions/getAllPosts/index.handler
+    events:
+      - httpApi:
+          path: /posts
           method: get
+
+  getPost:
+    handler: functions/getPost/index.handler
+    events:
+      - httpApi:
+          path: /posts/{id}
+          method: get
+
+  updatePost:
+    handler: functions/updatePost/index.handler
+    events:
+      - httpApi:
+          path: /posts/update/{id}
+          method: put
+
+  deletePost:
+    handler: functions/deletePost/index.handler
+    events:
+      - httpApi:
+          path: /posts/delete/{id}
+          method: delete
 
 # Define the resources that this project will use. In this case, a DynamoDB table.
 resources:
