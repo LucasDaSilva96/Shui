@@ -9,6 +9,8 @@ plugins:
   - serverless-dotenv-plugin
 
 provider:
+  httpApi: # Use the HTTP API Gateway
+    cors: true # Enable CORS for all routes
   name: aws
   runtime: nodejs20.x
   region: eu-north-1

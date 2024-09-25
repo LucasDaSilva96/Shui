@@ -5,6 +5,8 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home.tsx';
 import { Toaster } from './components/ui/toaster.tsx';
+import NewPost from './pages/NewPost.tsx';
+import EditPost from './pages/EditPost.tsx';
 
 const router = createBrowserRouter([
   {
@@ -15,7 +17,18 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
+      {
+        path: 'newPost',
+        element: <NewPost />,
+      },
+      {
+        path: 'editPost/:id',
+        element: <EditPost />,
+      },
     ],
+    ErrorBoundary: () => {
+      return <div>404 Page not found</div>;
+    },
   },
 ]);
 

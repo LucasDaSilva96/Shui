@@ -17,7 +17,6 @@ export default function Navigation() {
           <NavLink to='/#' className=''>
             New Post
           </NavLink>
-          <NavLink to='/login'>Login</NavLink>
         </div>
       </nav>
     </header>
