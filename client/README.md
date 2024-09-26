@@ -14,10 +14,10 @@ Ensure you have the following installed on your machine:
 
 1. Clone the repository:
 
-   ```
-   git clone [<repository-url>](https://github.com/LucasDaSilva96/Shui.git)
-   cd client
-   ```
+```
+git clone [<repository-url>](https://github.com/LucasDaSilva96/Shui.git)
+cd client
+```
 
 2. Install the dependencies:
 
@@ -58,9 +58,7 @@ In the project directory, you can run:
 - components/: Reusable UI components.
 - pages/: Page components corresponding to different routes.
 - services/: API service functions for interacting with the backend.
-- styles/: CSS and styling files.
-- App.js: Main application component.
-- index.js: Entry point of the application.
+- main.tsx: Main application component.
 
 **Environment Variables**
 Create a .env file in the root of your project to configure environment variables:
