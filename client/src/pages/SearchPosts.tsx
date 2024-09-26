@@ -8,13 +8,49 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { toast } from '@/hooks/use-toast';
+import { getErrorMessage } from '@/lib/errorCatch';
+import { getPostsByUser } from '@/services/api';
+import { useLoadingStore } from '@/services/loadingStore';
 import type { Post } from '@/types/post.types';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function SearchPost() {
   const [posts, setPosts] = useState<Post[]>([]);
   const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { setIsLoading, setNotLoading } = useLoadingStore();
+
+  async function handleSearch() {
+    if (!inputRef.current || !inputRef.current.value) return;
+
+    try {
+      const username = inputRef.current.value;
+      if (!username || !username.trim())
+        throw new Error('Please provide a username');
+      setIsLoading(true);
+      const response = await getPostsByUser(username);
+      if (!response || response.length < 1) {
+        setPosts([]);
+        return toast({
+          variant: 'default',
+          title: 'No posts found',
+          description: `No posts found for user ${username}`,
+        });
+      }
+      setPosts(response);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: getErrorMessage(error),
+      });
+    } finally {
+      setNotLoading();
+    }
+  }
+
   return (
     <section className='w-full bg-primary text-secondary flex flex-col overflow-y-auto items-center p-4 gap-4'>
       <h1 className='text-2xl font-bold'>Search Posts by user name</h1>
@@ -26,8 +62,9 @@ export default function SearchPost() {
           name='username'
           autoComplete='username'
           placeholder='User name'
+          ref={inputRef}
         />
-        <Button type='button' variant={'secondary'}>
+        <Button type='button' variant={'secondary'} onClick={handleSearch}>
           Search
         </Button>
       </div>
@@ -37,7 +74,7 @@ export default function SearchPost() {
           {posts.map((post) => (
             <Card
               key={post.id}
-              className='w-[375px] h-[300px] flex flex-col items-center justify-evenly relative'
+              className='min-w-[375px] min-h-[300px] flex flex-col items-center justify-evenly relative'
             >
               <CardHeader>
                 <CardTitle className='text-center flex flex-col gap-2'>
@@ -78,10 +115,15 @@ export default function SearchPost() {
                 )}
 
                 <div className='w-full flex items-center gap-4 mt-auto'>
-                  <Button onClick={() => navigate(`editPost/${post.id}`)}>
+                  <Button onClick={() => navigate(`/editPost/${post.id}`)}>
                     Edit
                   </Button>
-                  <Button variant={'destructive'}>Delete</Button>
+                  <Button
+                    variant={'destructive'}
+                    onClick={() => navigate(`/deletePost/${post.id}`)}
+                  >
+                    Delete
+                  </Button>
                 </div>
               </CardFooter>
             </Card>

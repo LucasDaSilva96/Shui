@@ -8,6 +8,8 @@ import { Toaster } from './components/ui/toaster.tsx';
 import NewPost from './pages/NewPost.tsx';
 import EditPost from './pages/EditPost.tsx';
 import SearchPost from './pages/SearchPosts.tsx';
+import { ToastProvider } from './components/ui/toast.tsx';
+import DeletePost from './pages/DeletePost.tsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
         path: 'searchPost',
         element: <SearchPost />,
       },
+      {
+        path: 'deletePost/:id',
+        element: <DeletePost />,
+      },
     ],
     ErrorBoundary: () => {
       return <div>404 Page not found</div>;
@@ -39,7 +45,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
-    <Toaster />
+    <ToastProvider duration={1000}>
+      <RouterProvider router={router} />
+      <Toaster />
+    </ToastProvider>
   </StrictMode>
 );

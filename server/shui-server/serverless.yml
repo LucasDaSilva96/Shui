@@ -62,7 +62,7 @@ functions:
     events:
       - httpApi:
           path: /posts/username
-          method: get
+          method: post
 
   updatePost:
     handler: functions/updatePost/index.handler

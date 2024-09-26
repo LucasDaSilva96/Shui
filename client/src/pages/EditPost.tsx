@@ -89,7 +89,7 @@ export default function EditPost() {
         text: values.text,
         username: values.username,
       });
-      navigate('/');
+      navigate(-1);
       toast({
         variant: 'default',
         title: 'Post updated successfully',
@@ -153,7 +153,7 @@ export default function EditPost() {
             type='button'
             className='mt-4 ml-4'
             variant={'secondary'}
-            onClick={() => navigate('/')}
+            onClick={() => navigate(-1)}
           >
             Back
           </Button>

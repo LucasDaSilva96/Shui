@@ -17,6 +17,8 @@ import { useLoadingStore } from '@/services/loadingStore';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useSortPostsStore } from '@/services/SortPostsStore';
+import dayjs from 'dayjs';
+dayjs().format();
 
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -29,10 +31,7 @@ export default function Home() {
     if (sortMessage === 'Ascending') {
       setSortMessage('Descending');
       setPosts(
-        [...posts].sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        )
+        [...posts].sort((a, b) => dayjs(b.createdAt).diff(dayjs(a.createdAt)))
       );
     } else {
       setSortMessage('Ascending');
@@ -65,7 +64,12 @@ export default function Home() {
     fetchPosts();
   }, []);
 
-  if (posts.length === 0) return <h1>No posts found</h1>;
+  if (posts.length === 0)
+    return (
+      <h1 className='text-2xl font-bold text-secondary py-8 text-center'>
+        No posts found
+      </h1>
+    );
 
   return (
     <section className='w-full h-full flex flex-col items-center p-2 relative'>
@@ -85,7 +89,7 @@ export default function Home() {
         {posts.map((post) => (
           <Card
             key={post.id}
-            className='w-[375px] h-[300px] flex flex-col items-center justify-evenly relative'
+            className='min-w-[375px] min-h-[300px] flex flex-col items-center justify-evenly relative'
           >
             <CardHeader>
               <CardTitle className='text-center flex flex-col gap-2'>
@@ -127,7 +131,12 @@ export default function Home() {
                 <Button onClick={() => navigate(`editPost/${post.id}`)}>
                   Edit
                 </Button>
-                <Button variant={'destructive'}>Delete</Button>
+                <Button
+                  variant={'destructive'}
+                  onClick={() => navigate(`deletePost/${post.id}`)}
+                >
+                  Delete
+                </Button>
               </div>
             </CardFooter>
           </Card>
