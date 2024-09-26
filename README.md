@@ -1,5 +1,7 @@
 # Individuell examination - Shui av Lucas Da Silva
 
+[preview image](/Shui.png)
+
 **Front-End documentation**
 [client](https://github.com/LucasDaSilva96/Shui/tree/main/client)
 
