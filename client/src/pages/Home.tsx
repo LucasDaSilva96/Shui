@@ -49,7 +49,13 @@ export default function Home() {
       try {
         setIsLoading(true);
         const posts = await getAllPosts();
-        setPosts(posts);
+        if (sortMessage === 'Descending') {
+          setPosts(
+            posts.sort((a, b) => dayjs(b.createdAt).diff(dayjs(a.createdAt)))
+          );
+        } else {
+          setPosts(posts);
+        }
       } catch (error) {
         toast({
           variant: 'destructive',
