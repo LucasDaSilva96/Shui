@@ -29,3 +29,11 @@ export const updatePost = async (
 
   return data;
 };
+
+export const createPost = async (post: { text: string; username: string }) => {
+  const response = await axios.post(API_URL + '/createPost', post);
+
+  const data = response.data.post as Post;
+
+  return data;
+};

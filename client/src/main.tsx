@@ -7,6 +7,7 @@ import Home from './pages/Home.tsx';
 import { Toaster } from './components/ui/toaster.tsx';
 import NewPost from './pages/NewPost.tsx';
 import EditPost from './pages/EditPost.tsx';
+import SearchPost from './pages/SearchPosts.tsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: 'editPost/:id',
         element: <EditPost />,
+      },
+      {
+        path: 'searchPost',
+        element: <SearchPost />,
       },
     ],
     ErrorBoundary: () => {

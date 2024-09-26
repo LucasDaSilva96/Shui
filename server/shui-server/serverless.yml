@@ -57,6 +57,13 @@ functions:
           path: /posts/{id}
           method: get
 
+  getPostsByUser:
+    handler: functions/getPostsByUser/index.handler
+    events:
+      - httpApi:
+          path: /posts/username
+          method: get
+
   updatePost:
     handler: functions/updatePost/index.handler
     events:
