@@ -15,7 +15,7 @@ Ensure you have the following installed on your machine:
 1. Clone the repository:
 
 ```
-git clone [<repository-url>](https://github.com/LucasDaSilva96/Shui.git)
+git clone https://github.com/LucasDaSilva96/Shui.git
 cd client
 ```
 
